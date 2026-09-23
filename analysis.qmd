@@ -6,6 +6,12 @@ execute:
   echo: false
 ---
 
+Mallard ducks are a widespread and familiar species of freshwater waterfowl, known for their adaptability to lakes, rivers, wetlands, and urban environments. They are highly mobile birds, and their movements can reveal how they use space across seasons, feeding grounds, and migration routes.
+
+Lake Constance, located on the border of Germany, Switzerland, and Austria, is a large, ecologically rich lake that provides important habitat for waterbirds. Because it sits in a major flyway region, it is a natural place to study how mallards move through the landscape and respond to changing environmental conditions.
+
+The GPS tracking data used here records the location of individual ducks over time, allowing us to see patterns in movement, habitat use, and geographic range. By examining where these birds travel and how often they are recorded, we can better understand the daily and seasonal behavior of mallards in a major European wetland system.
+
 ```{r}
 #| message: false
 #| cache: true
@@ -18,12 +24,16 @@ mallards |> slice_head(n = 10)
 ```
 
 ```{r}
+library(tidyverse)
+
 mallards |>
   count(duck_id, name = "n_fixes") |>
   arrange(desc(n_fixes))
 ```
 
 ```{r}
+library(tidyverse)
+
 mallards |>
   summarize(
     min_lat = min(lat, na.rm = TRUE),
