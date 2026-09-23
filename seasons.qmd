@@ -1,0 +1,42 @@
+---
+title: "Mallard Duck Movement"
+author: "Samuel Sammartano"
+format: html
+execute:
+  echo: false
+---
+
+```{r}
+#| message: false
+#| cache: true
+library(tidyverse)
+library(sf)
+
+mallards <- readRDS("data/mallards.rds")
+```
+
+```{r}
+library(tidyverse)
+
+mallards |>
+  count(month, name = "n_fixes") |>
+  arrange(month)
+```
+
+```{r}
+library(tidyverse)
+library(ggridges)
+
+mallards |>
+  filter(speed <= 30) |>
+  ggplot(aes(x = speed, y = month, fill = after_stat(x))) +
+  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01) +
+  scale_fill_viridis_c(option = "C") +
+  labs(
+    title = "Distribution of mallard speeds by month",
+    x = "Speed",
+    y = "Month",
+    fill = "Speed"
+  ) +
+  theme_minimal()
+```
